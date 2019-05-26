@@ -10,10 +10,14 @@ namespace ModelagemSoftware
         public Position[] positions;
         public int amountStored;
 
-        public Shelf()
+        public Shelf(int size)
         {
             Interlocked.Increment(ref counter);
 
+            for (int i = 0; i < size; i++)
+            {
+                positions[i] = new Position(5, 0.5);
+            }
         }
 
         ~Shelf()
