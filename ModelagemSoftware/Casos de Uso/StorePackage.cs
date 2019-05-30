@@ -8,7 +8,8 @@ namespace ModelagemSoftware.Casos_de_Uso
     {
         public StorePackage(Storage storage, Worker worker)
         {
-
+            storage.PrintPending();
+            Console.ReadKey();
         }
 
     }

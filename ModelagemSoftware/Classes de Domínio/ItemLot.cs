@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ModelagemSoftware
 {
@@ -12,15 +13,22 @@ namespace ModelagemSoftware
         public Status status;
         public Order processedBy;
 
-        public ItemLot()
+        public ItemLot(Merchandise merchandise, int quantity)
         {
+            this.id = ItemLot.counter;
+            this.quantity = quantity;
+            this.merchandise = merchandise;
             Interlocked.Increment(ref counter);
-
         }
 
         ~ItemLot()
         {
             Interlocked.Decrement(ref counter);
+        }
+
+        internal void Print()
+        {
+            Console.WriteLine($"id: {this.id} | codBarra: {this.merchandise.barCode} | quantidade: {this.quantity}");
         }
     }
 }

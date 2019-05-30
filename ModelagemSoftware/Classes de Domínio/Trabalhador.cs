@@ -9,9 +9,10 @@ namespace ModelagemSoftware
         public int id;
         public string name;
 
-        public Worker()
+        public Worker(string name)
         {
             Interlocked.Increment(ref counter);
+            this.name = name;
 
         }
 

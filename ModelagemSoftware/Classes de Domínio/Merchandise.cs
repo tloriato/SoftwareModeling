@@ -8,13 +8,16 @@ namespace ModelagemSoftware
 
         public int id;
         public string barCode;
-        public float price;
-        public float volume;
+        public double price;
+        public double volume;
 
-        public Merchandise()
+        public Merchandise(string barCode, double price, double volume)
         {
+            this.id = Merchandise.counter;
+            this.barCode = barCode;
+            this.price = price;
+            this.volume = volume;
             Interlocked.Increment(ref counter);
-
         }
 
         ~Merchandise()
