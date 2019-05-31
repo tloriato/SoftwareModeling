@@ -6,17 +6,21 @@ namespace ModelagemSoftware
     {
         static int counter = 0;
 
-        public int id;
-        public string barCode;
-        public double price;
-        public double volume;
+        private int id;
+        private string barCode;
+        private double price;
+        private double volume;
+        private double weight;
+        private Category category;
 
-        public Merchandise(string barCode, double price, double volume)
+        public Merchandise(string barCode, double price, double volume, double weight, Category category)
         {
-            this.id = Merchandise.counter;
-            this.barCode = barCode;
-            this.price = price;
-            this.volume = volume;
+            this.Id = Merchandise.counter;
+            this.BarCode = barCode;
+            this.Price = price;
+            this.Volume = volume;
+            this.Category = category;
+            this.Weight = weight;
             Interlocked.Increment(ref counter);
         }
 
@@ -25,5 +29,11 @@ namespace ModelagemSoftware
             Interlocked.Decrement(ref counter);
         }
 
+        public Category Category { get => category; set => category = value; }
+        public double Volume { get => volume; set => volume = value; }
+        public double Price { get => price; set => price = value; }
+        public string BarCode { get => barCode; set => barCode = value; }
+        public int Id { get => id; set => id = value; }
+        public double Weight { get => weight; set => weight = value; }
     }
 }

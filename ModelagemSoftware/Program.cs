@@ -9,8 +9,7 @@ namespace ModelagemSoftware
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to SMS: Storage Management System");
-            Console.WriteLine("1: Store Packages | 2: RgisterStorage | 3: EvaluateErrors | 4: Sair");
+            WelcomeMessage();
 
             System.ConsoleKeyInfo answer = Console.ReadKey();
             Console.WriteLine();
@@ -25,6 +24,9 @@ namespace ModelagemSoftware
                 {
                     populator.InsertPendingItems(storage);
                     StorePackage process = new StorePackage(storage, worker);
+                    Console.Clear();
+                    WelcomeMessage();
+
                 }
 
                 else
@@ -32,7 +34,14 @@ namespace ModelagemSoftware
                     Console.WriteLine("Não Implementado");
                 }
 
+                answer = Console.ReadKey();
             }
+        }
+
+        public static void WelcomeMessage()
+        {
+            Console.WriteLine("Welcome to SMS: Storage Management System");
+            Console.WriteLine("1: Store Packages | 2: RgisterStorage | 3: EvaluateErrors | 4: Sair");
         }
     }
 }

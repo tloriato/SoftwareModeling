@@ -13,7 +13,6 @@ namespace ModelagemSoftware
         {
             Interlocked.Increment(ref counter);
             this.name = name;
-
         }
 
         ~Worker()

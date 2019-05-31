@@ -13,12 +13,15 @@ namespace ModelagemSoftware
         public Worker responsable;
         public Status status;
         public string resolution;
-        public Intructions[] intructions;
+        public Instructions[] intructions;
 
-        public Order()
+        public Order(Instructions[] instructions, Worker worker)
         {
+            this.id = Order.counter;
             Interlocked.Increment(ref counter);
-
+            this.intructions = instructions;
+            this.responsable = worker;
+            this.status = Status.Storing;
         }
 
         ~Order()

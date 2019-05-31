@@ -22,21 +22,24 @@ namespace ModelagemSoftware.Preenchimento
             string barCode = RandomCode();
             double price = RandomPrice();
             double volume = RandomVolume();
-            return new Merchandise(barCode, price, volume);
+            double weight = RandomWeight();
+            Category category = RandomCategory();
+            return new Merchandise(barCode, price, volume, weight, category);
+        }
+
+        private double RandomWeight()
+        {
+            return Random(0.1, 2.0);
         }
 
         private double RandomVolume()   
         {
-            double maximum = 0.20;
-            double minimum = 0.03;
-            return Random(minimum, maximum);
+            return Random(0.03, 0.20);
         }
 
         private double RandomPrice()
         {
-            double maximum = 18.50;
-            double minimum = 8.50;
-            return Random(minimum, maximum);
+            return Random(8.50, 18.50);
         }
 
         private String RandomCode() 
@@ -52,6 +55,11 @@ namespace ModelagemSoftware.Preenchimento
         {
             Random random = new Random();
             return (double)Math.Truncate((random.NextDouble() * (max - min) + min) * 100) / 100;
+        }
+
+        private Category RandomCategory()
+        {
+            return new Category("Exemplo");
         }
 
         public List<Merchandise> Get ()
