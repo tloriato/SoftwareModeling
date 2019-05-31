@@ -13,7 +13,7 @@ namespace ModelagemSoftware
         public Shelf[][] shelves;
 
         public List<ItemLot> pendingItems;
-        public Order[] storageOrders;
+        public List<Order> storageOrders = new List<Order>();
 
         public Storage(int lines, int columns)
         {
@@ -64,16 +64,17 @@ namespace ModelagemSoftware
 
         public ItemLot ItemById(int id)
         {
-            return pendingItems.Find((obj) => obj.Id == id);
+            ItemLot item = this.pendingItems.Find(x => x.Id == id);
+            return item;
         }
 
         public Order CreateStorageOrder(int[] ids, Worker worker)
         {
-            Instructions[] instructions = new Instructions[ids.Length];
+            Instruction[] instructions = new Instruction[ids.Length];
 
             for (int i = 0; i < ids.Length; i++)
             {
-                Instructions maybeInstruction = FindFreeSpaceForId(ItemById(ids[i]));
+                Instruction maybeInstruction = FindFreeSpaceForId(ItemById(ids[i]));
 
                 if (maybeInstruction == null)
                 {
@@ -86,10 +87,12 @@ namespace ModelagemSoftware
                 }
             }
 
-            return new Order(instructions, worker);
+            this.storageOrders.Add(new Order(instructions, worker));
+
+            return this.storageOrders[this.storageOrders.Count - 1];
         }
 
-        private Instructions FindFreeSpaceForId(ItemLot itemLot)
+        private Instruction FindFreeSpaceForId(ItemLot itemLot)
         {
             foreach(Shelf[] line in shelves)
             {
@@ -99,7 +102,7 @@ namespace ModelagemSoftware
 
                     if (position != null)
                     {
-                        Instructions instructions = new Instructions(itemLot, shelf, position);
+                        Instruction instructions = new Instruction(itemLot, shelf, position);
                         return instructions;
                     }
 

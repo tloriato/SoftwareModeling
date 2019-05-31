@@ -7,12 +7,16 @@ namespace ModelagemSoftware
     {
         static int counter = 0;
 
-        public int id;
+        private int id;
         public Position[][] positions; // Passar para [][]
         public int amountStored;
 
+        public int Id { get => id; set => id = value; }
+
         public Shelf(int size)
         {
+            this.Id = Shelf.counter;
+
             Interlocked.Increment(ref counter);
 
             positions = new Position[size][];

@@ -8,7 +8,7 @@ namespace ModelagemSoftware
     {
         static int counter = 0;
 
-        public int id;
+        private int id;
 
         private double maxWeight; // in KG
         private double maxVolume; // in m3
@@ -23,13 +23,17 @@ namespace ModelagemSoftware
         public double StoringVolume { get => storingVolume; set => storingVolume = value; }
         public Category Category { get => category; set => category = value; }
         public double StoringWeight { get => storingWeight; set => storingWeight = value; }
+        public int Id { get => id; set => id = value; }
 
         public Position(double maxWeight, double maxVolume)
         {
+            this.Id = Position.counter;
+
             Interlocked.Increment(ref counter);
 
             this.MaxVolume = maxVolume;
             this.MaxWeight = maxWeight;
+            this.Category = null;
         }
 
         ~Position()
@@ -39,7 +43,7 @@ namespace ModelagemSoftware
 
         internal bool CanItStore(ItemLot itemLot)
         {
-            if (this.Category != itemLot.Category)
+            if (this.Category != itemLot.Category && this.Category != null)
             {
                 return false;
             }

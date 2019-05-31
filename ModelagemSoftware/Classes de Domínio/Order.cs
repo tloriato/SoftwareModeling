@@ -9,15 +9,17 @@ namespace ModelagemSoftware
     {
         static int counter = 0;
 
-        public int id;
+        private int id;
         public Worker responsable;
         public Status status;
         public string resolution;
-        public Instructions[] intructions;
+        public Instruction[] intructions;
 
-        public Order(Instructions[] instructions, Worker worker)
+        public int Id { get => id; set => id = value; }
+
+        public Order(Instruction[] instructions, Worker worker)
         {
-            this.id = Order.counter;
+            this.Id = Order.counter;
             Interlocked.Increment(ref counter);
             this.intructions = instructions;
             this.responsable = worker;
