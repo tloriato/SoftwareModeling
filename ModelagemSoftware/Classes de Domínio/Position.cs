@@ -13,8 +13,12 @@ namespace ModelagemSoftware
         private double maxWeight; // in KG
         private double maxVolume; // in m3
 
+        private double reservedWeight = 0; // in KG
+        private double reservedVolume = 0; // in m3
+
         private double storingVolume = 0;
         private double storingWeight = 0;
+
         private Category category;
         private List<ItemLot> storedItems = new List<ItemLot>();
 
@@ -24,6 +28,8 @@ namespace ModelagemSoftware
         public Category Category { get => category; set => category = value; }
         public double StoringWeight { get => storingWeight; set => storingWeight = value; }
         public int Id { get => id; set => id = value; }
+        public double ReservedWeight { get => reservedWeight; set => reservedWeight = value; }
+        public double ReservedVolume { get => reservedVolume; set => reservedVolume = value; }
 
         public Position(double maxWeight, double maxVolume)
         {
@@ -47,26 +53,37 @@ namespace ModelagemSoftware
             {
                 return false;
             }
-            else if (itemLot.Volume() + this.StoringVolume > this.MaxVolume)
+            else if (itemLot.Volume() + this.StoringVolume + this.ReservedVolume > this.MaxVolume)
             {
                 return false;
             }
-            else if (itemLot.Weight() + this.StoringWeight > this.MaxWeight)
+            else if (itemLot.Weight() + this.StoringWeight + this.ReservedWeight > this.MaxWeight)
             {
                 return false;
             }
             return true;
         }
 
-        internal bool StoredItem(ItemLot itemLot)
+        internal bool StoreItem(ItemLot itemLot)
+        {
+            return false;
+        }
+
+        internal bool ReserveSpace(ItemLot itemLot)
         {
             if (CanItStore(itemLot))
             {
-                storedItems.Add(itemLot);
-                this.StoringVolume += itemLot.Volume();
-                this.StoringWeight += itemLot.Weight();
+                if (this.Category == null)
+                {
+                    this.Category = itemLot.Category;
+                }
+
+                this.reservedVolume += itemLot.Volume();
+                this.reservedWeight += itemLot.Weight();
+
                 return true;
             }
+
             return false;
         }
     }

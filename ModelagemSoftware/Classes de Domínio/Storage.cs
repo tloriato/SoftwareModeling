@@ -108,10 +108,9 @@ namespace ModelagemSoftware
             {
                 foreach(Shelf shelf in line)
                 {
-                    Position position = shelf.CanItStore(itemLot);
-
-                    if (position != null)
+                    if (shelf.CanItStore(itemLot))
                     {
+                        Position position = shelf.ReservePosition(itemLot);
                         Instruction instructions = new Instruction(itemLot, shelf, position);
                         return instructions;
                     }

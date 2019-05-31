@@ -38,7 +38,7 @@ namespace ModelagemSoftware
             Interlocked.Decrement(ref counter);
         }
 
-        internal Position CanItStore(ItemLot itemLot)
+        internal Boolean CanItStore(ItemLot itemLot)
         {
             foreach(Position[] line in positions)
             {
@@ -46,15 +46,20 @@ namespace ModelagemSoftware
                 {
                     if (position.CanItStore(itemLot))
                     {
-                        return position;
+                        return true;
                     }
                 }
             }
 
-            return null;
+            return false;
         }
 
         internal Position StoreItem(ItemLot itemLot)
+        {
+            return null;
+        }
+
+        internal Position ReservePosition(ItemLot itemLot)
         {
             foreach (Position[] line in positions)
             {
@@ -62,11 +67,12 @@ namespace ModelagemSoftware
                 {
                     if (position.CanItStore(itemLot))
                     {
-                        position.StoredItem(itemLot);
+                        position.ReserveSpace(itemLot);
                         return position;
                     }
                 }
             }
+
             return null;
         }
     }
