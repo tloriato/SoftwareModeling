@@ -24,10 +24,11 @@ namespace ModelagemSoftware
         public ItemLot(Merchandise merchandise, int quantity)
         {
             this.Id = ItemLot.counter;
+            Interlocked.Increment(ref counter);
             this.Quantity = quantity;
             this.Merchandise = merchandise;
             this.Category = merchandise.Category;
-            Interlocked.Increment(ref counter);
+            this.Status = Status.Pending;
         }
 
         ~ItemLot()
@@ -49,5 +50,6 @@ namespace ModelagemSoftware
         {
             return (double)(this.Quantity * Merchandise.Weight);
         }
+
     }
 }

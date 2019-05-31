@@ -27,7 +27,7 @@ namespace ModelagemSoftware
 
                 for (int j = 0; j < size; j++)
                 {
-                    positions[i][j] = new Position(5, 0.5);
+                    positions[i][j] = new Position(8, 8);
                 }
 
             }

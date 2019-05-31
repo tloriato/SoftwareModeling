@@ -74,7 +74,14 @@ namespace ModelagemSoftware
 
             for (int i = 0; i < ids.Length; i++)
             {
-                Instruction maybeInstruction = FindFreeSpaceForId(ItemById(ids[i]));
+                ItemLot item = ItemById(ids[i]);
+
+                if (item.Status != Status.Pending)
+                {
+                    return null;
+                }
+
+                Instruction maybeInstruction = FindFreeSpaceForId(item);
 
                 if (maybeInstruction == null)
                 {
@@ -83,9 +90,12 @@ namespace ModelagemSoftware
 
                 else
                 {
+                    item.Status = Status.Storing;
                     instructions[i] = maybeInstruction;
                 }
             }
+
+
 
             this.storageOrders.Add(new Order(instructions, worker));
 
@@ -116,7 +126,10 @@ namespace ModelagemSoftware
         {
             foreach(ItemLot item in pendingItems)
             {
-               item.Print();
+                if (item.Status == Status.Pending)
+                {
+                    item.Print();
+                }
             }
         }
     }
