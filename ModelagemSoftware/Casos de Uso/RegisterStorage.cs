@@ -6,6 +6,10 @@ namespace ModelagemSoftware.CasosdeUso
         public RegisterStorage(Storage storage, Worker worker)
         {
             Console.WriteLine();
+            Line();
+            storage.PrintStoringOrders();
+            Line();
+            Console.WriteLine();
             Line("======== Please insert Order Id ========");
 
             int orderId = Convert.ToInt32(Console.ReadLine());

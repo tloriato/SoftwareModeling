@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace ModelagemSoftware
 {
-    public class Storage : Exception
+    public class Storage
     {
         static int counter = 0;
 
@@ -139,6 +139,17 @@ namespace ModelagemSoftware
                 if (item.Status == Status.Pending)
                 {
                     item.Print();
+                }
+            }
+        }
+
+        internal void PrintStoringOrders()
+        {
+           foreach(Order order in storageOrders)
+            {
+                if (order.Status == Status.Storing)
+                {
+                    Console.WriteLine($"Order #{order.Id} with status {order.Status} by worker {order.responsable.name}");
                 }
             }
         }
