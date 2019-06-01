@@ -6,9 +6,19 @@ namespace ModelagemSoftware.Preenchimento
     public class MerchandisePopulator
     {
         protected List<Merchandise> merchandises;
+        protected List<Category> parentCategories;
+        protected List<Category> childCategories;
 
         public MerchandisePopulator(int amount)
         {
+            parentCategories = new List<Category>();
+            childCategories = new List<Category>();
+
+            parentCategories.Add(new Category("Pai 1"));
+            parentCategories.Add(new Category("Pai 2"));
+            parentCategories.Add(new Category("Pai 3"));
+            childCategories.Add(new Category("Filho do Pai 2 #1", parentCategories[1].Id));
+
             merchandises = new List<Merchandise>();
             for(int i  = 0; i < amount; i++)
             {
@@ -59,7 +69,23 @@ namespace ModelagemSoftware.Preenchimento
 
         private Category RandomCategory()
         {
-            return new Category("Exemplo");
+            Random random = new Random();
+            if (random.Next(0, 10) % 2 == 0)
+            {
+                if (random.Next(0, 10) % 2 == 0)
+                {
+                    Category parent = parentCategories[random.Next(0, 3)];
+                    string name = $"Filho do {parent.Name} #{childCategories.Count}";
+
+                    Category child = new Category(name, parent.Id);
+                    childCategories.Add(child);
+                }
+
+                return childCategories[random.Next(0, childCategories.Count)];
+
+            }
+
+            return parentCategories[random.Next(0, 3)];
         }
 
         public List<Merchandise> Get ()

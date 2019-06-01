@@ -19,17 +19,19 @@ namespace ModelagemSoftware
         private double storingVolume = 0;
         private double storingWeight = 0;
 
-        private Category category;
+        private int categoryId;
+
         private List<ItemLot> storedItems = new List<ItemLot>();
 
         public double MaxWeight { get => maxWeight; set => maxWeight = value; }
         public double MaxVolume { get => maxVolume; set => maxVolume = value; }
         public double StoringVolume { get => storingVolume; set => storingVolume = value; }
-        public Category Category { get => category; set => category = value; }
+
         public double StoringWeight { get => storingWeight; set => storingWeight = value; }
         public int Id { get => id; set => id = value; }
         public double ReservedWeight { get => reservedWeight; set => reservedWeight = value; }
         public double ReservedVolume { get => reservedVolume; set => reservedVolume = value; }
+        public int CategoryId { get => categoryId; set => categoryId = value; }
 
         public Position(double maxWeight, double maxVolume)
         {
@@ -39,7 +41,7 @@ namespace ModelagemSoftware
 
             this.MaxVolume = maxVolume;
             this.MaxWeight = maxWeight;
-            this.Category = null;
+            this.CategoryId = -1;
         }
 
         ~Position()
@@ -49,7 +51,7 @@ namespace ModelagemSoftware
 
         internal bool CanItStore(ItemLot itemLot)
         {
-            if (this.Category != itemLot.Category && this.Category != null)
+            if (this.CategoryId != itemLot.Category.Id && this.CategoryId != -1)
             {
                 return false;
             }
@@ -73,9 +75,9 @@ namespace ModelagemSoftware
         {
             if (CanItStore(itemLot))
             {
-                if (this.Category == null)
+                if (this.CategoryId == -1)
                 {
-                    this.Category = itemLot.Category;
+                    this.CategoryId = itemLot.Category.Id;
                 }
 
                 this.reservedVolume += itemLot.Volume();

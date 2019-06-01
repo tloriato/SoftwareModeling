@@ -5,6 +5,8 @@
         Pending,
         Storing,
         Successful,
-        Error
+        Error,
+        Stored,
+        StoredWithErrors,
     }
 }

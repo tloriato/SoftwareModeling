@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TableParser;
 
-namespace ModelagemSoftware.Casos_de_Uso
+namespace ModelagemSoftware.CasosdeUso
 {
     class StorePackage
     {
@@ -67,7 +66,8 @@ namespace ModelagemSoftware.Casos_de_Uso
                 else
                 {
                     Line($"======== Instruções p/ Ordem {order.Id} ============");
-                    WriteInstructionsToConsole(order);
+                    Console.WriteLine();
+                    order.WriteInstructionsToConsole();
                 }
                
             }
@@ -78,27 +78,6 @@ namespace ModelagemSoftware.Casos_de_Uso
                 return;
 
             }
-        }
-
-        private void WriteInstructionsToConsole(Order order)
-        {
-            List<Instruction> holder = new List<Instruction>();
-
-            foreach(Instruction instruction in order.intructions)
-            {
-                holder.Add(instruction);
-            }
-
-            var table = holder.ToStringTable
-                (
-                    new[] {"LOT ID", "SHELF ID", "POSITION ID"},
-                    u => u.Lot.Id,
-                    u => u.Shelf.Id,
-                    u => u.Position.Id
-                );
-
-            Console.WriteLine(table);
-
         }
 
         private void Line(string line)

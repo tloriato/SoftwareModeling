@@ -5,16 +5,21 @@
         private ItemLot lot;
         private Shelf shelf;
         private Position position;
+        private Status status;
+        private string justification;
 
         public ItemLot Lot { get => lot; set => lot = value; }
         public Shelf Shelf { get => shelf; set => shelf = value; }
         public Position Position { get => position; set => position = value; }
+        public Status Status { get => status; set => status = value; }
+        public string Justification { get => justification; set => justification = value; }
 
         public Instruction(ItemLot lot, Shelf shelf, Position position)
         {
             this.Lot = lot;
             this.Shelf = shelf;
             this.Position = position;
+            this.Status = Status.Storing;
         }
 
         public int GetLotId()

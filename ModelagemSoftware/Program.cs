@@ -1,5 +1,4 @@
-﻿
-using ModelagemSoftware.Casos_de_Uso;
+﻿using ModelagemSoftware.CasosdeUso;
 using ModelagemSoftware.Preenchimento;
 using System;
 
@@ -24,15 +23,21 @@ namespace ModelagemSoftware
                 {
                     populator.InsertPendingItems(storage);
                     StorePackage process = new StorePackage(storage, worker);
-                    Console.Clear();
-                    WelcomeMessage();
+                }
 
+                else if (answer.KeyChar == '2')
+                {
+                    RegisterStorage process = new RegisterStorage(storage, worker);
                 }
 
                 else
                 {
                     Console.WriteLine("Não Implementado");
                 }
+
+                Console.WriteLine();
+                Console.WriteLine();
+                WelcomeMessage();
 
                 answer = Console.ReadKey();
             }
@@ -41,7 +46,7 @@ namespace ModelagemSoftware
         public static void WelcomeMessage()
         {
             Console.WriteLine("Welcome to SMS: Storage Management System");
-            Console.WriteLine("1: Store Packages | 2: RgisterStorage | 3: EvaluateErrors | 4: Sair");
+            Console.WriteLine("1: Store Packages | 2: RegisterStorage | 3: EvaluateErrors | 4: Sair");
         }
     }
 }

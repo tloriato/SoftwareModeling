@@ -88,11 +88,8 @@ namespace ModelagemSoftware
                     return null;
                 }
 
-                else
-                {
-                    item.Status = Status.Storing;
-                    instructions[i] = maybeInstruction;
-                }
+                item.Status = Status.Storing;
+                instructions[i] = maybeInstruction;
             }
 
 
@@ -116,6 +113,20 @@ namespace ModelagemSoftware
                     }
 
                 }
+            }
+
+            return null;
+        }
+
+        public Order GetOrderById(int id)
+        {
+            foreach (Order order in storageOrders)
+            {
+                if (order.Id == id)
+                {
+                    return order;
+                }
+
             }
 
             return null;
