@@ -7,6 +7,7 @@
         Successful,
         Error,
         Stored,
-        StoredWithErrors,
+        StoredWithErrorsUnsolved,
+        StoredWithErrorsSolved,
     }
 }

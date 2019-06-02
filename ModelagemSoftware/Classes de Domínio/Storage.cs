@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using TableParser;
 
 namespace ModelagemSoftware
 {
@@ -52,9 +53,9 @@ namespace ModelagemSoftware
             return true;
         }
 
-        public Boolean InsertPendingItems(List <ItemLot> items)
+        public Boolean InsertPendingItems(List<ItemLot> items)
         {
-            foreach(ItemLot item in items)
+            foreach (ItemLot item in items)
             {
                 InsertPendingItem(item);
             }
@@ -101,9 +102,9 @@ namespace ModelagemSoftware
 
         private Instruction FindFreeSpaceForId(ItemLot itemLot)
         {
-            foreach(Shelf[] line in shelves)
+            foreach (Shelf[] line in shelves)
             {
-                foreach(Shelf shelf in line)
+                foreach (Shelf shelf in line)
                 {
                     if (shelf.CanItStore(itemLot))
                     {
@@ -134,24 +135,89 @@ namespace ModelagemSoftware
 
         internal void PrintPending()
         {
-            foreach(ItemLot item in pendingItems)
+            List<ItemLot> holder = new List<ItemLot>();
+
+            foreach (ItemLot item in pendingItems)
             {
                 if (item.Status == Status.Pending)
                 {
-                    item.Print();
+                    holder.Add(item);
                 }
             }
+
+            var table = holder.ToStringTable
+                    (
+                        new[] { "ItemLot ID", "Cod. Barras", "Quantidade", "Categoria" },
+                        u => u.Id,
+                        u => u.Merchandise.BarCode,
+                        u => u.Quantity,
+                        u => u.Category.Name
+                    );
+
+            Console.WriteLine(table);
         }
 
         internal void PrintStoringOrders()
         {
-           foreach(Order order in storageOrders)
+            foreach (Order order in storageOrders)
             {
                 if (order.Status == Status.Storing)
                 {
-                    Console.WriteLine($"Order #{order.Id} with status {order.Status} by worker {order.responsable.name}");
+                    Console.WriteLine($"Order #{order.Id} with status {order.Status} by worker {order.Responsable.name}");
                 }
             }
+        }
+
+        internal void PrintUnsolvedOrders()
+        {
+            List<Order> holder = new List<Order>();
+
+            foreach (Order order in storageOrders)
+            {
+                if (order.Status == Status.StoredWithErrorsUnsolved)
+                {
+                    holder.Add(order);
+                }
+            }
+
+            var table = holder.ToStringTable
+                    (
+                        new[] { "Order ID", "Status", "Worker" },
+                        u => u.Id,
+                        u => u.Status,
+                        u => u.Responsable.name
+                    );
+
+            Console.WriteLine(table);
+        }
+
+        internal void PrintUnsolvedInstructionsFromOrderId(int id)
+        {
+            Order order = GetOrderById(id);
+
+            if (order.Status != Status.StoredWithErrorsUnsolved) return;
+
+            List<Instruction> holder = new List<Instruction>();
+
+            foreach (Instruction instruction in order.intructions)
+            {
+                if (instruction.Status == Status.Error)
+                {
+                    holder.Add(instruction);
+                }
+            }
+
+            var table = holder.ToStringTable
+                (
+                    new[] { "LOT ID", "SHELF ID", "POSITION ID", "CURRENT STATUS", "JUSTIFICATION" },
+                    u => u.Lot.Id,
+                    u => u.Shelf.Id,
+                    u => u.Position.Id,
+                    u => u.Status,
+                    u => u.Justification
+                );
+
+            Console.WriteLine(table);
         }
     }
 }

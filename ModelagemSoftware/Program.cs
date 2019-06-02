@@ -30,9 +30,14 @@ namespace ModelagemSoftware
                     RegisterStorage process = new RegisterStorage(storage, worker);
                 }
 
+                else if (answer.KeyChar == '3')
+                {
+                    EvaluateErrors process = new EvaluateErrors(storage, worker);
+                }
+
                 else
                 {
-                    Console.WriteLine("Não Implementado");
+                    Console.WriteLine("Inválido");
                 }
 
                 Console.WriteLine();

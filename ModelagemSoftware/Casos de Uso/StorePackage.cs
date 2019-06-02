@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TableParser;
 
 namespace ModelagemSoftware.CasosdeUso
 {
@@ -10,22 +11,32 @@ namespace ModelagemSoftware.CasosdeUso
         {
             Console.Clear();
 
+
+            Line("=========== Store Packages Procedure ============");
+            Console.WriteLine();
+
             Line("================ Pending Items: =================");
             Console.WriteLine();
 
             storage.PrintPending();
 
-            Line("=== Type IDs of items to Store or E(xit): ===");
-
+            Line("===== Type IDs of items to Store or E(xit): =====");
+            Console.Write("== IDs to Store: ");
             string input = Console.ReadLine();
-
+            Line();
 
             if (input.ToUpper() == "E")
             {
                 return;
             }
 
-            Line("====== Creating order with these items: ======");
+            Console.WriteLine();
+
+            Line("======== Creating order with these items: =======");
+
+            Console.WriteLine();
+
+            List<ItemLot> items = new List<ItemLot>();
 
             foreach (string itemS in input.Split(','))
             {
@@ -33,16 +44,27 @@ namespace ModelagemSoftware.CasosdeUso
                 {
                     int id = Convert.ToInt32(itemS);
                     ItemLot item = storage.ItemById(id);
-                    item.Print();
+                    items.Add(item);
                 }
                 catch 
                 {
-                    Console.WriteLine($"{itemS} não é um ID válido.");
+                    Console.WriteLine($"========= {itemS} não é um ID válido ===========");
                     return;
                 }
             }
 
-            Line("====== Press C to Confirm or other to Abort ======");
+            var table = items.ToStringTable
+                    (
+                        new[] { "ItemLot ID", "Cod. Barras", "Quantidade", "Categoria" },
+                        u => u.Id,
+                        u => u.Merchandise.BarCode,
+                        u => u.Quantity,
+                        u => u.Category.Name
+                    );
+
+            Console.WriteLine(table);
+
+            Line("====== Press C to Confirm or other to Abort =====");
 
             string confirmation = Console.ReadLine();
 
@@ -60,12 +82,12 @@ namespace ModelagemSoftware.CasosdeUso
 
                 if (order == null)
                 {
-                    Line("====== NÃO FOI POSSÍVEL ARMAZENAR ======");
+                    Line("=========== NÃO FOI POSSÍVEL ARMAZENAR ==========");
                 }
 
                 else
                 {
-                    Line($"======== Instruções p/ Ordem {order.Id} ============");
+                    Line($"=========== Instruções p/ Ordem {order.Id} ===============");
                     Console.WriteLine();
                     order.WriteInstructionsToConsole();
                 }
@@ -74,7 +96,7 @@ namespace ModelagemSoftware.CasosdeUso
 
             else
             {
-                Line("====== Operation Aborted ======");
+                Line("=============== Operation Aborted ===============");
                 return;
 
             }

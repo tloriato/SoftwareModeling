@@ -11,20 +11,21 @@ namespace ModelagemSoftware
         static int counter = 0;
 
         private int id;
-        public Worker responsable;
+        private Worker responsable;
         private Status status;
         public string resolution;
         public Instruction[] intructions;
 
         public int Id { get => id; set => id = value; }
         public Status Status { get => status; set => status = value; }
+        public Worker Responsable { get => responsable; set => responsable = value; }
 
         public Order(Instruction[] instructions, Worker worker)
         {
             this.Id = Order.counter;
             Interlocked.Increment(ref counter);
             this.intructions = instructions;
-            this.responsable = worker;
+            this.Responsable = worker;
             this.Status = Status.Storing;
         }
 

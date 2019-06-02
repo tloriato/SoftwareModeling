@@ -59,7 +59,7 @@ namespace ModelagemSoftware.CasosdeUso
                 }
             }
 
-            if (hadErors) order.Status = Status.StoredWithErrors;
+            if (hadErors) order.Status = Status.StoredWithErrorsUnsolved;
             else order.Status = Status.Stored;
 
             Line("========== Order Updated! ==========");
