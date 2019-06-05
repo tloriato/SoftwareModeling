@@ -39,7 +39,7 @@ namespace ModelagemSoftware.Preenchimento
 
         private double RandomWeight()
         {
-            return Random(0.1, 0.3);
+            return Random(0.1, 0.4);
         }
 
         private double RandomVolume()   

@@ -68,7 +68,21 @@ namespace ModelagemSoftware
 
         internal bool StoreItem(ItemLot itemLot)
         {
-            return false;
+            if (((this.reservedVolume - itemLot.Volume()) < 0) || ((this.reservedWeight - itemLot.Weight()) < 0))
+            {
+                return false;
+            }
+
+            if (itemLot.Category.Id != this.categoryId)
+            {
+                return false;
+            }
+
+            this.storedItems.Add(itemLot);
+            this.StoringVolume += itemLot.Volume();
+            this.StoringWeight += itemLot.Weight();
+
+            return true;
         }
 
         internal bool ReserveSpace(ItemLot itemLot)

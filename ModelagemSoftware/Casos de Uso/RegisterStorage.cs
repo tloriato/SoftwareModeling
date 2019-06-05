@@ -39,7 +39,16 @@ namespace ModelagemSoftware.CasosdeUso
 
                 if (status == 1)
                 {
-                    instr.Status = Status.Successful;
+                    bool stored = instr.Position.StoreItem(instr.Lot);
+                    if (stored)
+                    {
+                        instr.Status = Status.Successful;
+                    }
+                    else
+                    {
+                        Line("===== THIS SHOULD NOT HAPPEN ========");
+                        return;
+                    }
                 }
 
                 else if (status == 2)
