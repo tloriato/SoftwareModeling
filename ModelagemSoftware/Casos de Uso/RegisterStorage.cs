@@ -32,7 +32,7 @@ namespace ModelagemSoftware.CasosdeUso
 
                 Instruction instr = order.intructions[i];
                 Line($"==== Status for Instr. {i} for Lot {instr.Lot.Id} of Order {order.Id} ====",
-                      "========= 1 - Successful || 2 - Error ==========");
+                      "== 1 - Successful | 2 - Custom Error | 3 - Space Occupied | 4 - Broken Item ==");
 
                 int status = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
@@ -58,6 +58,24 @@ namespace ModelagemSoftware.CasosdeUso
                     instr.Status = Status.Error;
                     instr.Justification = justification;
 
+                    hadErors = true;
+                }
+
+                else if (status == 3)
+                {
+                    Line("===== Which item is being stored? =====");
+                    string justification = Console.ReadLine();
+                    instr.Status = Status.Error;
+                    instr.Justification = "SYS: Another Item Reported as Stored";
+                    hadErors = true;
+                }
+
+                else if (status == 4)
+                {
+                    Line("===== What happened? =====");
+                    string justification = Console.ReadLine();
+                    instr.Status = Status.Error;
+                    instr.Justification = "SYS: Broken Item";
                     hadErors = true;
                 }
 

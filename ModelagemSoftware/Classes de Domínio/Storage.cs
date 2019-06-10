@@ -6,6 +6,7 @@ using TableParser;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Storage
     {
         static int counter = 0;

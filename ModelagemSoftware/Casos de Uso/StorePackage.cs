@@ -32,6 +32,13 @@ namespace ModelagemSoftware.CasosdeUso
 
             Console.WriteLine();
 
+            if(input.Split(',').Length == 0)
+            {
+                Console.WriteLine($"================ Ordem Vazia ===================");
+                return;
+
+            }
+
             Line("======== Creating order with these items: =======");
 
             Console.WriteLine();

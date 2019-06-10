@@ -1,6 +1,9 @@
 ﻿using ModelagemSoftware.CasosdeUso;
 using ModelagemSoftware.Preenchimento;
+using ModelagemSoftware.Utils;
 using System;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace ModelagemSoftware
 {
@@ -22,6 +25,13 @@ namespace ModelagemSoftware
                 if (answer.KeyChar == '1')
                 {
                     populator.InsertPendingItems(storage);
+
+                    //XmlSerializer SerializerObj = new XmlSerializer(typeof(Storage));
+                    //TextWriter WriteFileStream = new StreamWriter(@"test.xml");
+                    //SerializerObj.Serialize(WriteFileStream, storage);
+
+                    //WriteFileStream.Close();
+
                     StorePackage process = new StorePackage(storage, worker);
                 }
 

@@ -79,8 +79,8 @@ namespace ModelagemSoftware
             }
 
             this.storedItems.Add(itemLot);
-            this.reservedVolume -= itemLot.Volume();
-            this.reservedWeight -= itemLot.Weight();
+            this.ReservedVolume -= itemLot.Volume();
+            this.ReservedWeight -= itemLot.Weight();
             this.StoringVolume += itemLot.Volume();
             this.StoringWeight += itemLot.Weight();
 
