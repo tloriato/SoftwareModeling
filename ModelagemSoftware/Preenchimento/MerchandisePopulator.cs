@@ -30,24 +30,24 @@ namespace ModelagemSoftware.Preenchimento
         protected Merchandise GenerateMerchandise()
         {
             string barCode = RandomCode();
-            double price = RandomPrice();
-            double volume = RandomVolume();
-            double weight = RandomWeight();
+            decimal price = RandomPrice();
+            decimal volume = RandomVolume();
+            decimal weight = RandomWeight();
             Category category = RandomCategory();
             return new Merchandise(barCode, price, volume, weight, category);
         }
 
-        private double RandomWeight()
+        private decimal RandomWeight()
         {
             return Random(0.1, 0.4);
         }
 
-        private double RandomVolume()   
+        private decimal RandomVolume()   
         {
             return Random(0.03, 0.20);
         }
 
-        private double RandomPrice()
+        private decimal RandomPrice()
         {
             return Random(8.50, 18.50);
         }
@@ -61,10 +61,10 @@ namespace ModelagemSoftware.Preenchimento
             return random.Next(0, (int)unixTime).ToString();
         }
 
-        private double Random(double min, double max)
+        private decimal Random(double min, double max)
         {
             Random random = new Random();
-            return (double)Math.Truncate((random.NextDouble() * (max - min) + min) * 100) / 100;
+            return (decimal)Math.Truncate((random.NextDouble() * (max - min) + min) * 100) / 100;
         }
 
         private Category RandomCategory()

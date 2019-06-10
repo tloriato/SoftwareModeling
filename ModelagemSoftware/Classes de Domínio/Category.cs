@@ -4,25 +4,32 @@ using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Category
     {
         static int counter = 0;
 
         private int id;
         private string name;
-        public Category parent;
+        private Category parent;
 
         private static List<WeakReference> instances = new List<WeakReference>();
 
         public string Name { get => name; set => name = value; }
         public int Id { get => id; set => id = value; }
+        public Category Parent { get => parent; set => parent = value; }
+
+        public Category()
+        {
+
+        }
 
         public Category(string name)
         {
             this.Id = Category.counter;
             Interlocked.Increment(ref counter);
             this.Name = name;
-            this.parent = null;
+            this.Parent = null;
             instances.Add(new WeakReference(this));
         }
 
@@ -44,7 +51,7 @@ namespace ModelagemSoftware
 
             }
 
-            this.parent = parent;
+            this.Parent = parent;
             instances.Add(new WeakReference(this));
         }
 

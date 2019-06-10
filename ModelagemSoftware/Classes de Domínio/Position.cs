@@ -4,36 +4,42 @@ using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Position
     {
         static int counter = 0;
 
         private int id;
 
-        private double maxWeight; // in KG
-        private double maxVolume; // in m3
+        private decimal maxWeight; // in KG
+        private decimal maxVolume; // in m3
 
-        private double reservedWeight = 0; // in KG
-        private double reservedVolume = 0; // in m3
+        private decimal reservedWeight = 0; // in KG
+        private decimal reservedVolume = 0; // in m3
 
-        private double storingVolume = 0;
-        private double storingWeight = 0;
+        private decimal storingVolume = 0;
+        private decimal storingWeight = 0;
 
         private int categoryId;
 
         private List<ItemLot> storedItems = new List<ItemLot>();
 
-        public double MaxWeight { get => maxWeight; set => maxWeight = value; }
-        public double MaxVolume { get => maxVolume; set => maxVolume = value; }
-        public double StoringVolume { get => storingVolume; set => storingVolume = value; }
+        public decimal MaxWeight { get => maxWeight; set => maxWeight = value; }
+        public decimal MaxVolume { get => maxVolume; set => maxVolume = value; }
+        public decimal StoringVolume { get => storingVolume; set => storingVolume = value; }
 
-        public double StoringWeight { get => storingWeight; set => storingWeight = value; }
+        public decimal StoringWeight { get => storingWeight; set => storingWeight = value; }
         public int Id { get => id; set => id = value; }
-        public double ReservedWeight { get => reservedWeight; set => reservedWeight = value; }
-        public double ReservedVolume { get => reservedVolume; set => reservedVolume = value; }
+        public decimal ReservedWeight { get => reservedWeight; set => reservedWeight = value; }
+        public decimal ReservedVolume { get => reservedVolume; set => reservedVolume = value; }
         public int CategoryId { get => categoryId; set => categoryId = value; }
 
-        public Position(double maxWeight, double maxVolume)
+        public Position()
+        {
+
+        }
+
+        public Position(decimal maxWeight, decimal maxVolume)
         {
             this.Id = Position.counter;
 

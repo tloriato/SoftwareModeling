@@ -6,6 +6,7 @@ using TableParser;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Order
     {
         static int counter = 0;
@@ -13,18 +14,25 @@ namespace ModelagemSoftware
         private int id;
         private Worker responsable;
         private Status status;
-        public string resolution;
-        public Instruction[] intructions;
+        private string resolution;
+        private Instruction[] intructions;
 
         public int Id { get => id; set => id = value; }
         public Status Status { get => status; set => status = value; }
         public Worker Responsable { get => responsable; set => responsable = value; }
+        public string Resolution { get => resolution; set => resolution = value; }
+        public Instruction[] Intructions { get => intructions; set => intructions = value; }
+
+        public Order()
+        {
+
+        }
 
         public Order(Instruction[] instructions, Worker worker)
         {
             this.Id = Order.counter;
             Interlocked.Increment(ref counter);
-            this.intructions = instructions;
+            this.Intructions = instructions;
             this.Responsable = worker;
             this.Status = Status.Storing;
         }
@@ -38,7 +46,7 @@ namespace ModelagemSoftware
         {
             List<Instruction> holder = new List<Instruction>();
 
-            foreach (Instruction instruction in this.intructions)
+            foreach (Instruction instruction in this.Intructions)
             {
                 holder.Add(instruction);
             }

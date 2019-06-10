@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelagemSoftware.Utils;
+using System;
 namespace ModelagemSoftware.CasosdeUso
 {
     public class EvaluateErrors
@@ -37,8 +38,9 @@ namespace ModelagemSoftware.CasosdeUso
             else
             {
                 Order order = storage.GetOrderById(id);
-                order.resolution = resolution;
+                order.Resolution = resolution;
                 order.Status = Status.StoredWithErrorsSolved;
+                JSON.WriteToJsonFile("../../../data.json", storage);
             }
         }
 

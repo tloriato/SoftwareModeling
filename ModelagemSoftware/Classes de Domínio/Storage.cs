@@ -11,27 +11,37 @@ namespace ModelagemSoftware
     {
         static int counter = 0;
 
-        public int id;
-        public Shelf[][] shelves;
+        private int id;
+        private Shelf[][] shelves;
 
-        public List<ItemLot> pendingItems;
-        public List<Order> storageOrders = new List<Order>();
+        private List<ItemLot> pendingItems = new List<ItemLot>();
+        private List<Order> storageOrders = new List<Order>();
+
+        public int Id { get => id; set => id = value; }
+        public Shelf[][] Shelves { get => shelves; set => shelves = value; }
+        public List<ItemLot> PendingItems { get => pendingItems; set => pendingItems = value; }
+        public List<Order> StorageOrders { get => storageOrders; set => storageOrders = value; }
+
+        public Storage()
+        {
+
+        }
 
         public Storage(int lines, int columns)
         {
-            this.id = Storage.counter;
+            this.Id = Storage.counter;
 
             Interlocked.Increment(ref counter);
 
-            shelves = new Shelf[lines][];
+            Shelves = new Shelf[lines][];
 
             for (int i = 0; i < lines; i++)
             {
-                shelves[i] = new Shelf[columns];
+                Shelves[i] = new Shelf[columns];
 
                 for (int j = 0; j < columns; j++)
                 {
-                    shelves[i][j] = new Shelf(3);
+                    Shelves[i][j] = new Shelf(3);
                 }
             }
 
@@ -44,12 +54,8 @@ namespace ModelagemSoftware
 
         public Boolean InsertPendingItem(ItemLot item)
         {
-            if (this.pendingItems == null)
-            {
-                this.pendingItems = new List<ItemLot>();
-            }
 
-            this.pendingItems.Add(item);
+            this.PendingItems.Add(item);
 
             return true;
         }
@@ -66,7 +72,7 @@ namespace ModelagemSoftware
 
         public ItemLot ItemById(int id)
         {
-            ItemLot item = this.pendingItems.Find(x => x.Id == id);
+            ItemLot item = this.PendingItems.Find(x => x.Id == id);
             return item;
         }
 
@@ -96,14 +102,14 @@ namespace ModelagemSoftware
 
 
 
-            this.storageOrders.Add(new Order(instructions, worker));
+            this.StorageOrders.Add(new Order(instructions, worker));
 
-            return this.storageOrders[this.storageOrders.Count - 1];
+            return this.StorageOrders[this.StorageOrders.Count - 1];
         }
 
         private Instruction FindFreeSpaceForId(ItemLot itemLot)
         {
-            foreach (Shelf[] line in shelves)
+            foreach (Shelf[] line in Shelves)
             {
                 foreach (Shelf shelf in line)
                 {
@@ -122,7 +128,7 @@ namespace ModelagemSoftware
 
         public Order GetOrderById(int id)
         {
-            foreach (Order order in storageOrders)
+            foreach (Order order in StorageOrders)
             {
                 if (order.Id == id)
                 {
@@ -138,7 +144,7 @@ namespace ModelagemSoftware
         {
             List<ItemLot> holder = new List<ItemLot>();
 
-            foreach (ItemLot item in pendingItems)
+            foreach (ItemLot item in PendingItems)
             {
                 if (item.Status == Status.Pending)
                 {
@@ -160,11 +166,11 @@ namespace ModelagemSoftware
 
         internal void PrintStoringOrders()
         {
-            foreach (Order order in storageOrders)
+            foreach (Order order in StorageOrders)
             {
                 if (order.Status == Status.Storing)
                 {
-                    Console.WriteLine($"Order #{order.Id} with status {order.Status} by worker {order.Responsable.name}");
+                    Console.WriteLine($"Order #{order.Id} with status {order.Status} by worker {order.Responsable.Name}");
                 }
             }
         }
@@ -173,7 +179,7 @@ namespace ModelagemSoftware
         {
             List<Order> holder = new List<Order>();
 
-            foreach (Order order in storageOrders)
+            foreach (Order order in StorageOrders)
             {
                 if (order.Status == Status.StoredWithErrorsUnsolved)
                 {
@@ -186,7 +192,7 @@ namespace ModelagemSoftware
                         new[] { "Order ID", "Status", "Worker" },
                         u => u.Id,
                         u => u.Status,
-                        u => u.Responsable.name
+                        u => u.Responsable.Name
                     );
 
             Console.WriteLine(table);
@@ -200,7 +206,7 @@ namespace ModelagemSoftware
 
             List<Instruction> holder = new List<Instruction>();
 
-            foreach (Instruction instruction in order.intructions)
+            foreach (Instruction instruction in order.Intructions)
             {
                 if (instruction.Status == Status.Error)
                 {

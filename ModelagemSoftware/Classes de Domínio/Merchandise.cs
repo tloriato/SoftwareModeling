@@ -1,19 +1,26 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Merchandise
     {
         static int counter = 0;
 
         private int id;
         private string barCode;
-        private double price;
-        private double volume;
-        private double weight;
+        private decimal price;
+        private decimal volume;
+        private decimal weight;
         private Category category;
 
-        public Merchandise(string barCode, double price, double volume, double weight, Category category)
+        public Merchandise()
+        {
+
+        }
+
+        public Merchandise(string barCode, decimal price, decimal volume, decimal weight, Category category)
         {
             this.Id = Merchandise.counter;
             this.BarCode = barCode;
@@ -30,10 +37,10 @@ namespace ModelagemSoftware
         }
 
         public Category Category { get => category; set => category = value; }
-        public double Volume { get => volume; set => volume = value; }
-        public double Price { get => price; set => price = value; }
+        public decimal Volume { get => volume; set => volume = value; }
+        public decimal Price { get => price; set => price = value; }
         public string BarCode { get => barCode; set => barCode = value; }
         public int Id { get => id; set => id = value; }
-        public double Weight { get => weight; set => weight = value; }
+        public decimal Weight { get => weight; set => weight = value; }
     }
 }

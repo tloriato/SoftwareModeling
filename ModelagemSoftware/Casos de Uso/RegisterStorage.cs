@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelagemSoftware.Utils;
+using System;
 namespace ModelagemSoftware.CasosdeUso
 {
     public class RegisterStorage
@@ -25,12 +26,12 @@ namespace ModelagemSoftware.CasosdeUso
 
             bool hadErors = false;
 
-            for(int i = 0; i < order.intructions.Length; i++)
+            for(int i = getNextInstruction(order.Intructions); i < order.Intructions.Length; i++)
             {
                 Line("======== Showing Order Instructions ========");
                 order.WriteInstructionsToConsole();
 
-                Instruction instr = order.intructions[i];
+                Instruction instr = order.Intructions[i];
                 Line($"==== Status for Instr. {i} for Lot {instr.Lot.Id} of Order {order.Id} ====",
                       "== 1 - Successful | 2 - Custom Error | 3 - Space Occupied | 4 - Broken Item ==");
 
@@ -84,12 +85,28 @@ namespace ModelagemSoftware.CasosdeUso
                     Line("===== Status Inválido! ======");
                     i--;
                 }
+
+                JSON.WriteToJsonFile("../../../data.json", storage);
             }
 
             if (hadErors) order.Status = Status.StoredWithErrorsUnsolved;
             else order.Status = Status.Stored;
 
             Line("========== Order Updated! ==========");
+        }
+
+        private int getNextInstruction(Instruction[] intructions)
+        {
+            for (int i = 0; i < intructions.Length; i++)
+            {
+                if (intructions[i].Status == Status.Storing)
+                {
+                    return i;
+                }
+            }
+
+            // This won't ever happen
+            return -1;
         }
 
         private void Line(string line, string line2)

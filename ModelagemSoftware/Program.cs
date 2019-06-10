@@ -16,22 +16,13 @@ namespace ModelagemSoftware
             System.ConsoleKeyInfo answer = Console.ReadKey();
             Console.WriteLine();
 
-            Storage storage = new Storage(2, 2);
-            Worker worker = new Worker("Tiago");
-            Populator populator = new Populator();
+            Worker worker = JSON.ReadFromJsonFile<Worker>("../../../worker.json");
+            Storage storage = JSON.ReadFromJsonFile<Storage>("../../../data.json");
 
             while (answer.KeyChar != '4')
             {
                 if (answer.KeyChar == '1')
                 {
-                    populator.InsertPendingItems(storage);
-
-                    //XmlSerializer SerializerObj = new XmlSerializer(typeof(Storage));
-                    //TextWriter WriteFileStream = new StreamWriter(@"test.xml");
-                    //SerializerObj.Serialize(WriteFileStream, storage);
-
-                    //WriteFileStream.Close();
-
                     StorePackage process = new StorePackage(storage, worker);
                 }
 

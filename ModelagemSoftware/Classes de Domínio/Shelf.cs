@@ -3,15 +3,23 @@ using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Shelf
     {
         static int counter = 0;
 
         private int id;
-        public Position[][] positions; // Passar para [][]
-        public int amountStored;
+        private Position[][] positions; // Passar para [][]
+        private int amountStored;
 
         public int Id { get => id; set => id = value; }
+        public Position[][] Positions { get => positions; set => positions = value; }
+        public int AmountStored { get => amountStored; set => amountStored = value; }
+
+        public Shelf()
+        {
+
+        }
 
         public Shelf(int size)
         {
@@ -19,15 +27,15 @@ namespace ModelagemSoftware
 
             Interlocked.Increment(ref counter);
 
-            positions = new Position[size][];
+            Positions = new Position[size][];
 
             for (int i = 0; i < size; i++)
             {
-                positions[i] = new Position[size];
+                Positions[i] = new Position[size];
 
                 for (int j = 0; j < size; j++)
                 {
-                    positions[i][j] = new Position(8, 8);
+                    Positions[i][j] = new Position(8, 8);
                 }
 
             }
@@ -40,7 +48,7 @@ namespace ModelagemSoftware
 
         internal Boolean CanItStore(ItemLot itemLot)
         {
-            foreach(Position[] line in positions)
+            foreach(Position[] line in Positions)
             {
                 foreach(Position position in line)
                 {
@@ -61,7 +69,7 @@ namespace ModelagemSoftware
 
         internal Position ReservePosition(ItemLot itemLot)
         {
-            foreach (Position[] line in positions)
+            foreach (Position[] line in Positions)
             {
                 foreach (Position position in line)
                 {

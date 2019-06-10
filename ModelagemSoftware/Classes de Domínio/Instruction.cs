@@ -1,5 +1,8 @@
-﻿namespace ModelagemSoftware
+﻿using System;
+
+namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Instruction
     {
         private ItemLot lot;
@@ -14,6 +17,10 @@
         public Status Status { get => status; set => status = value; }
         public string Justification { get => justification; set => justification = value; }
 
+        public Instruction()
+        {
+
+        }
         public Instruction(ItemLot lot, Shelf shelf, Position position)
         {
             this.Lot = lot;

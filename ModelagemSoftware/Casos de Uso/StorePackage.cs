@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelagemSoftware.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TableParser;
@@ -98,7 +99,9 @@ namespace ModelagemSoftware.CasosdeUso
                     Console.WriteLine();
                     order.WriteInstructionsToConsole();
                 }
-               
+
+                // Save State
+                JSON.WriteToJsonFile("../../../data.json", storage);
             }
 
             else

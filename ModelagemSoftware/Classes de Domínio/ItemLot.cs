@@ -3,6 +3,7 @@ using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class ItemLot
     {
         static int counter = 0;
@@ -21,6 +22,10 @@ namespace ModelagemSoftware
         public Order ProcessedBy { get => processedBy; set => processedBy = value; }
         public Category Category { get => category; set => category = value; }
 
+        public ItemLot()
+        {
+
+        }
         public ItemLot(Merchandise merchandise, int quantity)
         {
             this.Id = ItemLot.counter;
@@ -41,14 +46,14 @@ namespace ModelagemSoftware
             Console.WriteLine($"id: {this.Id} | codBarra: {this.Merchandise.BarCode} | quantidade: {this.Quantity} | categoria: {this.Merchandise.Category.Name}");
         }
 
-        public double Volume()
+        public decimal Volume()
         {
-            return (double)(this.Quantity * Merchandise.Volume);
+            return (decimal)(this.Quantity * Merchandise.Volume);
         }
 
-        public double Weight()
+        public decimal Weight()
         {
-            return (double)(this.Quantity * Merchandise.Weight);
+            return (decimal)(this.Quantity * Merchandise.Weight);
         }
 
     }

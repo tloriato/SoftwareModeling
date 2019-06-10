@@ -1,18 +1,28 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ModelagemSoftware
 {
+    [Serializable()]
     public class Worker
     {
         static int counter = 0;
 
-        public int id;
-        public string name;
+        private int id;
+        private string name;
+
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+
+        public Worker()
+        {
+
+        }
 
         public Worker(string name)
         {
             Interlocked.Increment(ref counter);
-            this.name = name;
+            this.Name = name;
         }
 
         ~Worker()
